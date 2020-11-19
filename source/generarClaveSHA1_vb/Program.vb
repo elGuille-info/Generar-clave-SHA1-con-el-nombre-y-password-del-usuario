@@ -45,7 +45,7 @@ Module Program
 
         ' generar la clave SHA1 y mostrarla
         dim claveSHA1 = UtilSHA1.GenerarClaveSHA1(usuario, passw)
-        Console.WriteLine($"La clave SHA1 es: '{claveSHA1}'.")
+        Console.WriteLine($"La clave SHA1 es: '{claveSHA1}' con {claveSha1.length} caracteres.")
             
     End Sub
 End Module
@@ -87,10 +87,14 @@ public class UtilSHA1
         ' para que siempre ocupen dos dígitos.
         Dim sb As New StringBuilder
         For i As Integer = 0 To result.Length - 1
-            If result(i) < 16 Then
-                sb.Append("0")
-            End If
-            sb.Append(result(i).ToString("x"))
+            ' If result(i) < 16 Then
+            '     sb.Append("0")
+            ' End If
+            'sb.Append(result(i).ToString("x"))
+
+            ' Usando x2 nos evitamos hacer la comprobación de si el valor es menor de 16
+            ' ya que de esta forma siempre se genera el valor hexadecimal usando 2 caracteres
+            sb.Append(result(i).ToString("x2"))
         Next
 
         Return sb.ToString.ToUpper

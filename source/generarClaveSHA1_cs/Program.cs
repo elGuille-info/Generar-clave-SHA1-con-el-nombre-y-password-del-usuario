@@ -45,7 +45,7 @@ class Program
 
         // generar la clave SHA1 y mostrarla
         var claveSHA1 = UtilSHA1.GenerarClaveSHA1(usuario, passw);
-        Console.WriteLine($"La clave SHA1 es: '{claveSHA1}'.");
+        Console.WriteLine($"La clave SHA1 es: '{claveSHA1}' con {claveSHA1.Length} caracteres.");
     }
 }
 
@@ -85,11 +85,16 @@ public class UtilSHA1
         // cuando tiene una cifra hay que rellenarlo con cero
         // para que siempre ocupen dos dígitos.
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i <= result.Length - 1; i++)
+        for (int i = 0; i < result.Length; i++)
         {
-            if (result[i] < 16)
-                sb.Append("0");
-            sb.Append(result[i].ToString("x"));
+            // if (result[i] < 16)
+            //     sb.Append("0");
+            // sb.Append(result[i].ToString("x"));
+
+            // Usando x2 nos evitamos hacer la comprobación de si el valor es menor de 16
+            // ya que de esta forma siempre se genera el valor hexadecimal usando 2 caracteres
+            sb.Append(result[i].ToString("x2"));
+
         }
 
         return sb.ToString().ToUpper();
